@@ -119,7 +119,7 @@ ro.sf.hwrotation=0
 ro.boot.selinux=disable
 
 # temporary enables NAV bar (soft keys)
-qemu.hw.mainkeys=1
+qemu.hw.mainkeys=0
 
 # Wifi
 mediatek.wlan.chip=CONSYS_MT6735
