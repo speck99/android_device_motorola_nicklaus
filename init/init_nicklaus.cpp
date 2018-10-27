@@ -7,6 +7,11 @@
 #include "log.h"
 #include "util.h"
 
+#include <android-base/file.h>
+#include <android-base/properties.h>
+#include <android-base/strings.h>
+#include <android-base/logging.h>
+
 namespace android {
 namespace init {
 
