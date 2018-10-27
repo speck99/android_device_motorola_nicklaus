@@ -96,8 +96,7 @@ void vendor_load_properties()
 {
     LOG(INFO) << "Starting custom init";
     std::string platform;
-
-    sku = android::base::GetProperty("ro.boot.hardware.sku", "");
+    
     platform = android::base::GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
