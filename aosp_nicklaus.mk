@@ -17,7 +17,7 @@
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Inherit some common lineageos stuff.
-$(call inherit-product, vendor/aosp/config/common.mk)
+$(call inherit-product, vendor/aosp/common.mk)
 
 PRODUCT_DEVICE := nicklaus
 PRODUCT_NAME := aosp_nicklaus
