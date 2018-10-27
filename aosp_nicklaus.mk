@@ -20,7 +20,11 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 PRODUCT_DEVICE := nicklaus
-PRODUCT_NAME := lineage_nicklaus
-PRODUCT_BRAND := motorola
-PRODUCT_MODEL := nicklaus
-PRODUCT_MANUFACTURER := nicklaus
+PRODUCT_NAME := aosp_nicklaus
+PRODUCT_BRAND := Motorola
+PRODUCT_MODEL := Moto E (4) Plus
+PRODUCT_MANUFACTURER := Motorola
+
+TARGET_BOOT_ANIMATION_RES := 720
+
+PRODUCT_GMS_CLIENTID_BASE := android-motorola
