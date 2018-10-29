@@ -83,7 +83,6 @@ void num_sims()
 }
 void vendor_load_properties()
 {
-    LOG(INFO) << "Starting custom init";
     std::string platform;
     
     platform = property_get("ro.board.platform");
