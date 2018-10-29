@@ -1,5 +1,6 @@
-#include <fcntl.h>
 #include <stdlib.h>
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
 #include <sys/sysinfo.h>
 
 #include "vendor_init.h"
@@ -7,40 +8,28 @@
 #include "log.h"
 #include "util.h"
 
-#include <android-base/file.h>
-#include <android-base/properties.h>
-#include <android-base/strings.h>
-#include <android-base/logging.h>
-
-namespace android {
-namespace init {
-
-void init_alarm_boot_properties()
+void property_override(char const prop[], char const value[])
 {
-    char const *boot_mode_file = "/sys/devices/virtual/BOOT/BOOT/boot/boot_mode";
-    std::string boot_mode;
+    prop_info *pi;
 
-    if (android::base::ReadFileToString(boot_mode_file, &boot_mode)) {
-        if (android::base::Trim(boot_mode) == "7") {
-            property_set("ro.alarm_boot", "true");
-        }
-    }
-    else {
-        LOG(ERROR) << "Unable to read boot_mode from " << boot_mode_file;
-    }
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
 }
 
 void check_device()
 {
-    std::string ram;
+    struct sysinfo sys;
 
-    ram = android::base::GetProperty("ro.boot.ram", "");
+    sysinfo(&sys);
 
-    if (ram == "2GB")
+    if (sys.totalram > 2048ull * 1024 * 1024)
     {
         property_set("dalvik.vm.heapstartsize", "8m");
-        property_set("dalvik.vm.heapgrowthlimit", "192m");
-        property_set("dalvik.vm.heapsize", "384m");
+        property_set("dalvik.vm.heapgrowthlimit", "288m");
+        property_set("dalvik.vm.heapsize", "768m");
         property_set("dalvik.vm.heaptargetutilization", "0.75");
         property_set("dalvik.vm.heapminfree", "512k");
         property_set("dalvik.vm.heapmaxfree", "8m");
@@ -60,8 +49,8 @@ void check_device()
     else
     {
         property_set("dalvik.vm.heapstartsize", "8m");
-        property_set("dalvik.vm.heapgrowthlimit", "288m");
-        property_set("dalvik.vm.heapsize", "768m");
+        property_set("dalvik.vm.heapgrowthlimit", "192m");
+        property_set("dalvik.vm.heapsize", "384m");
         property_set("dalvik.vm.heaptargetutilization", "0.75");
         property_set("dalvik.vm.heapminfree", "512k");
         property_set("dalvik.vm.heapmaxfree", "8m");
@@ -84,7 +73,7 @@ void num_sims()
 {
     std::string dualsim;
 
-    dualsim = android::base::GetProperty("ro.boot.dualsim", "");
+    dualsim = property_get("ro.boot.dualsim");
 
     if (dualsim == "true") {
         property_set("persist.radio.multisim.config", "dsds");
@@ -97,14 +86,10 @@ void vendor_load_properties()
     LOG(INFO) << "Starting custom init";
     std::string platform;
     
-    platform = android::base::GetProperty("ro.board.platform", "");
+    platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
     check_device();
     num_sims();
-    init_alarm_boot_properties();
 }
-
-}  // namespace init
-}  // namespace android
