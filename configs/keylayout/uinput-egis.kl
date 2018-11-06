@@ -19,6 +19,6 @@
 #key 621   FPS_ONENAV_YMINUS
 # Mod:
 key 616   HOME
-key 617   APP_SWITCH
-key 618   MENU
+key 617   SLEEP
+key 618   APP_SWITCH
 key 619   BACK

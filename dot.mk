@@ -17,14 +17,12 @@
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 # Inherit some common lineageos stuff.
-$(call inherit-product, vendor/aosp/common.mk)
+$(call inherit-product, vendor/dot/config/common.mk)
 
 PRODUCT_DEVICE := nicklaus
-PRODUCT_NAME := aosp_nicklaus
+PRODUCT_NAME := dot_nicklaus
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := Moto E (4) Plus
 PRODUCT_MANUFACTURER := Motorola
-
-TARGET_BOOT_ANIMATION_RES := 720
 
 PRODUCT_GMS_CLIENTID_BASE := android-motorola
