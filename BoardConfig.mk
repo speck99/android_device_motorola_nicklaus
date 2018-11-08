@@ -41,6 +41,9 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 TARGET_USES_MKE2FS := true # Use MKE2FS for creating ext4 images
 
 # Kernel
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_SOURCE := kernel/motorola/nicklaus
+TARGET_KERNEL_CONFIG := nicklaus_defconfig
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04000000
@@ -49,7 +52,6 @@ TARGET_KERNEL_ARCH := arm
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/zImage
 
 # Linker
 LINKER_FORCED_SHIM_LIBS := /system/lib/libnetutils.so|libshim_ifc.so
@@ -75,6 +77,3 @@ BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # System Properties
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
-
-# Hack for building without kernel sources
-$(shell mkdir -p $(OUT)/obj/KERNEL_OBJ/usr)
