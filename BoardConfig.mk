@@ -73,7 +73,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.mt6735
 
 # SELinux
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+#BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # System Properties
 TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
