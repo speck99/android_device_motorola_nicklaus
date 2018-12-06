@@ -66,6 +66,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/media/mtk_omx_core.cfg:system/vendor/etc/mtk_omx_core.cfg
 
+# INITrc fles
+PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,device/motorola/nicklaus/configs/init,$(TARGET_COPY_OUT_VENDOR)/etc)
+
 # Keyboard layout
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,${LOCAL_PATH}/configs/keylayout,system/usr/keylayout)

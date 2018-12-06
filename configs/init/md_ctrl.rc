@@ -1,0 +1,16 @@
+ on property:vold.decrypt=trigger_reset_main
+    write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
+    start stop_modem
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+    setprop service.nvram_init 0
+
+service stop_modem /vendor/bin/md_ctrl 0
+    class main
+    disabled
+    oneshot
+
+service start_modem /vendor/bin/md_ctrl 1
+    class main
+    disabled
+    oneshot

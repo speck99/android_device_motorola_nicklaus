@@ -144,10 +144,6 @@ on post-fs-data
     mkdir /data/drm/wv 0770 drm system
     # extend timeout to 10 secs for loading MD images
     write /sys/class/firmware/timeout 10
-	
-# GPS
-    mkdir /data/gps_mnl 0771 gps system
-    mkdir /data/misc/gps 0770 gps system
 
     # NFC
     mkdir /data/nfc_socket 0771 nfc radio
@@ -587,9 +583,6 @@ chmod 0660 /sys/class/misc/m_mag_misc/magactive
    
 	# secure memory
     chown system system /proc/secmem0
-
-    # AGPS
-    mkdir /data/agps_supl 0771 gps system
     	
     chmod 0666 /dev/exm0
 	#Thermal	
@@ -703,52 +696,9 @@ on boot
     chown system /dev/ttyGS0
     chmod 660 /dev/ttyGS1
     chown system /dev/ttyGS1
- 
-
-on property:vold.decrypt=trigger_reset_main
-    write /proc/bootprof "INIT:vold.decrypt=trigger_reset_main"
-    start stop_modem
-    setprop sys.boot_completed 0
-    setprop dev.bootcomplete 0
-    setprop service.nvram_init 0
 
 on property:vold.decrypt=trigger_post_fs_data
     write /proc/bootprof "INIT:vold.decrypt=trigger_post_fs_data"
-
-on property:vold.decrypt=trigger_restart_min_framework
-    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_min_framework"
-    start nvram_daemon
-    start sysenv_daemon
-    start start_modem
-    start msensord
-    start permission_check
-    start stp_dump
-on property:vold.decrypt=trigger_restart_framework
-    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_framework"
-    start nvram_daemon
-    start sysenv_daemon
-    start start_modem
-    start msensord
-    start permission_check
-
-on property:vold.decrypt=trigger_shutdown_framework
-    write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
-    start stop_modem
-    start swapoff_action
-    stop stp_dump
-    setprop sys.boot_completed 0
-    setprop dev.bootcomplete 0
-    setprop service.nvram_init 0
-
-service stop_modem /vendor/bin/md_ctrl 0
-    class main
-    disabled
-    oneshot
-
-service start_modem /vendor/bin/md_ctrl 1
-    class main
-    disabled
-    oneshot
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
@@ -775,12 +725,6 @@ service ged_srv /vendor/bin/ged_srv
 
 service netdiag /vendor/bin/netdiag
     class main
-
-service nvram_daemon /vendor/bin/nvram_daemon
-    class main
-    user root
-    group system
-    oneshot
 
 service sysenv_daemon /vendor/bin/sysenv_daemon
     class main
@@ -1036,12 +980,6 @@ service NvRAMAgent /vendor/bin/nvram_agent_binder
     class main
     user system
     group system
-
-service thermal_manager /vendor/bin/thermal_manager
-    class main
-    user root
-	group system
-    oneshot
 
 service thermal /vendor/bin/thermal
     class main

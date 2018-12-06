@@ -1,0 +1,11 @@
+on boot
+    start teei_daemon
+
+# teei service daemon
+#add zhuhailin for tee sdk 
+service teei_daemon /vendor/bin/teei_daemon
+    class core
+    user root
+    group system
+    disabled
+   # oneshot

@@ -1,0 +1,32 @@
+on property:vold.decrypt=trigger_restart_min_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_min_framework"
+    start nvram_daemon
+    start sysenv_daemon
+    start start_modem
+    start msensord
+    start permission_check
+    start stp_dump
+
+on property:vold.decrypt=trigger_restart_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_restart_framework"
+    start nvram_daemon
+    start sysenv_daemon
+    start start_modem
+    start msensord
+    start permission_check
+
+on property:vold.decrypt=trigger_shutdown_framework
+    write /proc/bootprof "INIT:vold.decrypt=trigger_shutdown_framework"
+    start stop_modem
+    start swapoff_action
+    stop stp_dump
+    setprop sys.boot_completed 0
+    setprop dev.bootcomplete 0
+    setprop service.nvram_init 0
+
+service nvram_daemon /vendor/bin/nvram_daemon
+    class main
+    user root
+    group system
+    oneshot
+    
