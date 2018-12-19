@@ -26,7 +26,7 @@ on early-init
 
 on init
     # Support legacy paths
-    symlink /sdcard /storage/sdcard0
+    symlink /sdcard /mnt/sdcard
    
     # if primary storage is physical, set ro.vold.primary_physical to 1
     #setprop ro.vold.primary_physical 1
@@ -583,6 +583,9 @@ chmod 0660 /sys/class/misc/m_mag_misc/magactive
    
 	# secure memory
     chown system system /proc/secmem0
+
+    # AGPS
+    mkdir /data/agps_supl 0771 gps system
     	
     chmod 0666 /dev/exm0
 	#Thermal	
@@ -767,7 +770,7 @@ start atcid-daemon-u
 service audio-daemon /vendor/bin/audiocmdservice_atci
     class main
     socket atci-audio stream 660 root system
-    user root
+    user media
     disabled
     oneshot
 
@@ -788,8 +791,8 @@ service DMAgent /vendor/bin/dm_agent_binder
 
 service PPLAgent /vendor/bin/ppl_agent
     class main
-    user root
-    group root system cache
+    user system
+    group system cache
 
 
 service cmmb /system/bin/cmmbsp
@@ -815,14 +818,14 @@ service dbus /system/bin/dbus-daemon --system --nofork
     user bluetooth
     group bluetooth net_bt_admin
 
-service bluetoothd /system/bin/bluetoothd -n
-    class main
-    socket bluetooth stream 660 bluetooth bluetooth
-    socket dbus_bluetooth stream 660 bluetooth bluetooth
-    # init.rc does not yet support applying capabilities, so run as root and
+#service bluetoothd /system/bin/bluetoothd -n
+#    class main
+#    socket bluetooth stream 660 bluetooth bluetooth
+#    socket dbus_bluetooth stream 660 bluetooth bluetooth
+#    # init.rc does not yet support applying capabilities, so run as root and
     # let bluetoothd drop uid to bluetooth with the right linux capabilities
-    group bluetooth net_bt_admin misc
-    disabled
+#    group bluetooth net_bt_admin misc
+#    disabled
 
 #
 #  Modem related services (Begin)
@@ -840,7 +843,7 @@ service agpsd /vendor/bin/mtk_agpsd
     socket agpsd2 stream 660 gps inet
     socket agpsd3 stream 660 gps inet
     user gps
-    group gps radio inet sdcard_r sdcard_rw misc system
+    group gps radio inet sdcard_r sdcard_rw misc
 
 service slpd /vendor/bin/slpd
     class main
@@ -978,7 +981,7 @@ service emsvr /vendor/bin/em_svr
 
 service NvRAMAgent /vendor/bin/nvram_agent_binder
     class main
-    user system
+    user root
     group system
 
 service thermal /vendor/bin/thermal
