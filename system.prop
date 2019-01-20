@@ -130,6 +130,13 @@ wifi.tethering.interface=ap0
 wifi.interface=wlan0
 wifi.direct.interface=p2p0
 
+# Misc
+ro.com.google.clientidbase=android-motorola
+ro.com.google.clientidbase.am=android-motorola
+ro.com.google.clientidbase.gmm=android-motorola
+ro.com.google.clientidbase.yt=android-motorola
+ro.com.google.clientidbase.ms=android-motorola-rev2
+
 # WFD
 wfd.dummy.enable=1
 

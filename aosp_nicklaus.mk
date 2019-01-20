@@ -22,9 +22,12 @@ $(call inherit-product, vendor/aosp/common.mk)
 PRODUCT_DEVICE := nicklaus
 PRODUCT_NAME := aosp_nicklaus
 PRODUCT_BRAND := Motorola
-PRODUCT_MODEL := Moto E (4) Plus
+PRODUCT_MODEL := nicklaus
 PRODUCT_MANUFACTURER := Motorola
 
 TARGET_BOOT_ANIMATION_RES := 720
 
-PRODUCT_GMS_CLIENTID_BASE := android-motorola
+PRODUCT_BUILD_PROP_OVERRIDES += \
+    BUILD_FINGERPRINT=motorola/nicklaus_f/nicklaus_f:7.1.1/NMA26.42-167/197:user/release-keys \
+    PRIVATE_BUILD_DESC="nicklaus_f-user 7.1.1 NMA26.42-167 197 release-keys" \
+    PRODUCT_NAME="Moto E (4) Plus"
