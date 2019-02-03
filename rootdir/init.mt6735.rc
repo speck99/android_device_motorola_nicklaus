@@ -764,9 +764,9 @@ service start_modem /vendor/bin/md_ctrl 1
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
 # Update the second boot logo
-service bootlogoupdater /vendor/bin/boot_logo_updater
-    class core
-    oneshot
+#service bootlogoupdater /vendor/bin/boot_logo_updater
+#    class core
+#    oneshot
 
 # start ged_srv
 on property:sys.boot_completed=1
@@ -888,7 +888,7 @@ service bluetoothd /system/bin/bluetoothd -n
 #
 #  Modem related services (Begin)
 #
-service pppd_gprs /system/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
+service pppd_gprs /vendor/bin/pppd_dt /dev/ttyACM0 debug noauth refuse-eap usepeerdns nodetach
     user root
     group radio cache inet misc
     disabled
@@ -1093,7 +1093,7 @@ service guiext-server /vendor/bin/guiext-server
     user system
     group system graphics
 
-service charge_only_mode /system/bin/charge_only_mode
+service charge_only_mode /vendor/bin/charge_only_mode
      user root
      group graphics system input
      disabled

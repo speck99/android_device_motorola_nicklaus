@@ -209,7 +209,7 @@ service atcid-daemon-e /vendor/bin/atcid
 	oneshot
 
 # Lct add by zl for fpc
-service etsd /system/bin/etsd
+service etsd /vendor/bin/etsd
 	user system
 	group system
 	class late_start
