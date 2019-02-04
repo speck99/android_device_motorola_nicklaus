@@ -43,7 +43,7 @@ TARGET_USES_MKE2FS := true # Use MKE2FS for creating ext4 images
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_SOURCE := kernel/motorola/nicklaus
-TARGET_KERNEL_CONFIG := nicklaus_defconfig
+TARGET_KERNEL_CONFIG := lineageos_nicklaus_defconfig
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04000000
@@ -66,7 +66,7 @@ BOARD_CACHEIMAGE_PARTITION_SIZE 	:= 419430400
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Init
-TARGET_INIT_VENDOR_LIB := libinit_nicklaus
+#TARGET_INIT_VENDOR_LIB := libinit_nicklaus
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
